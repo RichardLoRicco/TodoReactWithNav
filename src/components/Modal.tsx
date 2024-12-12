@@ -1,5 +1,5 @@
 import { SyntheticEvent, useState } from "react";
-import { Todo, NewTodo, ModalProps, SelectedTodo } from "../types";
+import { Todo, NewTodo, ModalProps, SelectedTodo, CurrentSection } from "../types";
 import todoService from "../services/todoService";
 
 import { validateDay, validateMonth, validateYear, validTitle, getFilteredTodos, sortTodosByCompletion } from "../utils";
@@ -112,9 +112,10 @@ const Modal = ({
       .createNewTodo(newTodo)
       .then((returnedTodo) => {
         const updatedAllTodos = sortTodosByCompletion(allTodos.concat(returnedTodo));
+        const newSection: CurrentSection = { title: "All Todos", type: 'all' };
         setAllTodos(updatedAllTodos);
-        setCurrentTodos(getFilteredTodos(updatedAllTodos, currentSection));
-        setCurrentSection({ title: "All Todos", type: 'all' });
+        setCurrentSection(newSection);
+        setCurrentTodos(getFilteredTodos(updatedAllTodos, newSection));
       })
       .catch((error) => console.error("Failed to add new todo:", error));
 

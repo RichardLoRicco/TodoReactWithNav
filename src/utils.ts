@@ -1,7 +1,7 @@
 import { CurrentSection, DueDateTally, Todo, TodosByDate, TodoWithDueDate } from "./types";
 
 export const sortTodosByCompletion = (allTodos: Todo[]): Todo[] => {
-  return allTodos.sort((a, b) => {
+  return [...allTodos].sort((a, b) => {
     if (a.completed && !b.completed) {
       return 1;
     } else if (!a.completed && b.completed) {
